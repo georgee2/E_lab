@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "726920308744",
+    "project_id": "e-lab-d7ae2",
+    "storage_bucket": "e-lab-d7ae2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726920308744:android:0cee259da8200de1f349bd",
+        "android_client_info": {
+          "package_name": "com.example.e_lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726920308744-5d1f473b8cdc3ag47s4vstmsl4sb97ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmkgG9hFEROs4OO3e_cMJ8AcgqfTHJfMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726920308744-5d1f473b8cdc3ag47s4vstmsl4sb97ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
