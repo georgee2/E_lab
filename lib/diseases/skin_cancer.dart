@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_utils_class/image_utils_class.dart';
 import 'package:tflite/tflite.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
@@ -62,8 +62,8 @@ class _SkinCancerState extends State<SkinCancer> {
 
   loadSkinModel() async {
     await Tflite.loadModel(
-        model: "assets/skin_TFLite_v9.tflite",
-        labels: "assets/labels.txt",
+        model: "assets/skin_TFLite.tflite",
+        //labels: "assets/labels.txt",
         numThreads: 1, // defaults to 1
         isAsset: true, // defaults to true, set to false to load resources outside assets
         useGpuDelegate: false // defaults to false, set to true to use GPU delegate
@@ -118,6 +118,11 @@ class _SkinCancerState extends State<SkinCancer> {
     return convertedBytes.buffer.asUint8List();
   }
 
+  Uint8List imageProcess(File image) {
+    var base64 = ImageUtils.fileToBase64(image);
+    return ImageUtils.base64ToUnit8list(base64);
+  }
+
   // Uint8List imageToByteListUint8(img.Image image, int inputSize) {
   //   var convertedBytes = Uint8List(1 * inputSize * inputSize * 3);
   //   var buffer = Uint8List.view(convertedBytes.buffer);
@@ -150,11 +155,11 @@ class _SkinCancerState extends State<SkinCancer> {
   // }
 
   classifyImage() async {
-    var imageBytes = (await rootBundle.load('assets/df.jpeg')).buffer;
+    var imageBytes = (await rootBundle.load('assets/nv.jpeg')).buffer;
     img.Image oriImage = img.decodeJpg(imageBytes.asUint8List());
-    img.Image resizedImage = img.copyResize(oriImage, height: 224, width: 224);
+    img.Image resizedImage = img.copyResize(oriImage, height: 28, width: 28);
     var output = await Tflite.runModelOnBinary(
-        binary: imageToByteListUint8(resizedImage, 224),// required
+        binary: imageToByteListFloat32(resizedImage, 28, 28, 28),// required
         numResults: 7,    // defaults to 5
         threshold: 0.05,  // defaults to 0.1
         asynch: true      // defaults to true
